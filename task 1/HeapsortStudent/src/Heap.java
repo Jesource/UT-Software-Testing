@@ -36,7 +36,7 @@ public class Heap {
 //        if (valueList.size() > (2*index)-1){
         if (valueList.size() > (2*index)+1){
 //            return (2*(index)-1);
-            return (2*(index)+1);
+            return (2*(index)+1);   //TODO: example bug fix
         }
         else return -1;
     }
@@ -89,8 +89,8 @@ public class Heap {
 
             if (currentElem < leftChild ){
                 if (leftChild > rightChild){
-//                    valueList.set(index, rightChild);
-                    valueList.set(index, leftChild);
+//                    valueList.set(index, rightChild); //TODO: bug #2, added this line
+                    valueList.set(index, leftChild);    //
                     valueList.set(leftChildIndex, currentElem);
                     BubbleDown(leftChildIndex);
                 }
@@ -98,7 +98,8 @@ public class Heap {
                     valueList.set(index, rightChild);
                     valueList.set(rightChildIndex, currentElem);
                     BubbleDown(rightChildIndex);    //TODO: I've added this line, need to include this to report
-                    // TODO its kinda skipped bubbling down elements when:
+                    // TODO Issue #3
+                    //  its kinda skipped bubbling down elements when:
                     //  1. rightChild > left child > currentElem, it just swapped children
                     //  it makes sense to BubbleDown only right child as it is the biggest from both of children
                 }
