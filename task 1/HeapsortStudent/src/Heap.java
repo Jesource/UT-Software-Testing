@@ -14,7 +14,7 @@ public class Heap {
         this.valueList = heapList;
         heapify();
     }
-       
+
     /*
      * turn the list to binary heap valueList by rearranging elements
      */
@@ -26,7 +26,7 @@ public class Heap {
             BubbleDown(i);
         }
     }
-    
+
     /*
      * methods to calculate the indexes of the elements in the valueList and to get elements from given indexes
      * @param index of the element
@@ -157,7 +157,8 @@ public class Heap {
             return;
         }
         else{
-            valueList.remove(valueList.size()-1);
+//            valueList.remove(valueList.size()-1);
+            valueList.remove(indexOfRemoveElem);
             valueList.set(indexOfRemoveElem, lastElem);
             int parentOfRemoved = elemParent(indexOfRemoveElem);
 

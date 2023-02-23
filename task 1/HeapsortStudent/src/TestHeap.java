@@ -32,11 +32,11 @@ public class TestHeap {
         System.out.println("After adding elements: ");
         heap.printAsList();
         heap.printAsTree();
-//        heap.removeElem(10);
+        heap.removeElem(10);
 //        heap.removeElem(99);
-//        System.out.println("After removing elements: ");
-//        heap.printAsList();
-//        heap.printAsTree();
+        System.out.println("After removing elements: ");
+        heap.printAsList();
+        heap.printAsTree();
 //        System.out.println("After removing root element: ");
 //        heap.removeLargest();
 //        heap.printAsList();
