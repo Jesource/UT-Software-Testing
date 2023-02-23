@@ -159,7 +159,9 @@ public class Heap {
         else{
 //            valueList.remove(valueList.size()-1);
             valueList.remove(indexOfRemoveElem);
-            valueList.set(indexOfRemoveElem, lastElem);
+            valueList.add(indexOfRemoveElem, lastElem);     //TODO: issue #5/6 or #4/5
+            valueList.remove(valueList.size() - 1);
+            BubbleDown(indexOfRemoveElem);
             int parentOfRemoved = elemParent(indexOfRemoveElem);
 
             if (lastElem < parentOfRemoved){

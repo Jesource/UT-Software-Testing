@@ -33,7 +33,7 @@ public class TestHeap {
         heap.printAsList();
         heap.printAsTree();
         heap.removeElem(10);
-//        heap.removeElem(99);
+        heap.removeElem(99);
         System.out.println("After removing elements: ");
         heap.printAsList();
         heap.printAsTree();
