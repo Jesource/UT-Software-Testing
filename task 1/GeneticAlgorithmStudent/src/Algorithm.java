@@ -15,7 +15,7 @@ public class Algorithm {
      */
     protected static int getFitness(Individual iv){
         int clashes = 0;
-    	for (int i = 7; i>0; i--) {
+        for (int i = 7; i>0; i--) {
             for (int j = 7; j>0; j--) {
                 if (i != j) {
                     if (iv.list.get(i).equals(iv.list.get(j))) {
@@ -23,7 +23,7 @@ public class Algorithm {
                     }
                 }
             }
-            if (checkDiagonals(iv,iv.list.get(i), i)) clashes += 1;
+            if (!checkDiagonals(iv,iv.list.get(i), i)) clashes += 1;
         }
         return clashes;
     }

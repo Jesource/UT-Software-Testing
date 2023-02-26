@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestGA extends Algorithm {
-	public static List<Integer> generationCounts = new ArrayList<>();
+    public static List<Integer> generationCounts = new ArrayList<>();
     public static void main(String[] args) throws Exception {
         int def_pop_size = 100;
         Population pop = new Population(def_pop_size);
