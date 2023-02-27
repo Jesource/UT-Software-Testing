@@ -37,9 +37,9 @@ public class TestHeap {
         System.out.println("After removing elements: ");
         heap.printAsList();
         heap.printAsTree();
-//        System.out.println("After removing root element: ");
-//        heap.removeLargest();
-//        heap.printAsList();
-//        heap.printAsTree();
+        System.out.println("After removing root element: ");
+        heap.removeLargest();
+        heap.printAsList();
+        heap.printAsTree();
     }
 }
