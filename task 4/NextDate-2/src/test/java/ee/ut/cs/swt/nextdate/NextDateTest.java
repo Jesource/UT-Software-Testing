@@ -153,5 +153,14 @@ public class NextDateTest {
 	// F94 = 1801 <= year <= 2021 + February + day > 28		+ day !=29 + day <= 29
 	// Summary: 28 < day < 29 + February	-	not possible to cover last branch
 
+	@Test
+	public final void testRun_32ndOfAugust2008_invalidInputDate() {
+		assertEquals("invalid Input Date", trialDate.run(8, 32, 2008));
+	}
+
+	@Test
+	public final void test_99thDecember2004_invalidInputDate() {
+		assertEquals("Invalid Input Date", trialDate.run(12, 99, 2004));
+	}
 }
 
