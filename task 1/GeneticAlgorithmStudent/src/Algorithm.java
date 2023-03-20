@@ -9,7 +9,8 @@ public class Algorithm {
     public static int counter = 0;
 
     /* Calculates fitness for individual
-     * (+1 for each threat from column for the currently viewed queen, +1 for all threats together from diagonals fot the currently viewed queen)
+     * (+1 for each threat from column for the currently viewed queen,
+     * +1 for all threats together from diagonals fot the currently viewed queen)
      * @param one board state
      * @return calculated fitness value (best is 0)
      */
@@ -43,7 +44,9 @@ public class Algorithm {
         return true;
     }
 
-    /* Sorts current individuals by fitness (0 is best) in ascending order and mates the best half of individuals with each other and adds a mutation to each new individual
+    /* Sorts current individuals by fitness (0 is best)
+    in ascending order and mates the best half of individuals with
+    each other and adds a mutation to each new individual
      * @param a population of individuals
      * @return a new population based on the current one
      */
@@ -57,7 +60,7 @@ public class Algorithm {
             halfPop.individuals.add(pop.individuals.get(i));
         }
         Population newPop = new Population();
-        for (int i = popSize/2-1; i >=0; i--){
+        for (int i = popSize/2-1; i >= 0; i--){
             if (i > 0) {
                 Individual nextGenIv = mateIv(halfPop.individuals.get(i), halfPop.individuals.get(i - 1));
                 mutateIv(nextGenIv);
@@ -83,7 +86,8 @@ public class Algorithm {
      * @return a combined board state
      */
     protected static Individual mateIv(Individual iv1, Individual iv2){
-        final List<Integer> indices = new Random().ints(0, 8).distinct().limit(4).boxed().collect(Collectors.toList());
+        final List<Integer> indices = new Random().ints(0,
+                8).distinct().limit(4).boxed().collect(Collectors.toList());
         Individual newIndividual = new Individual();
         for (int i = 0; i <= 7; i++){
             if (indices.contains(i)){
@@ -137,10 +141,10 @@ public class Algorithm {
      * @return the solution board state
      */
     protected static Individual generation(Population population) throws Exception{
-        if (counter >= 1000) {
+        if (counter >= 100) {
             throw new Exception("Didn't find solution in 1000 generations");
         }
-        for (Individual iv:population.individuals) {
+        for (Individual iv : population.individuals) {
             if (getFitness(iv) == 0){
                 return iv;
             }
