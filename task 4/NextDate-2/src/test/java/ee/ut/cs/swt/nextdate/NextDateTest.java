@@ -121,57 +121,29 @@ public class NextDateTest {
 		assertEquals("3/1/2000", trialDate.run(2, 29, 2000));
 	}
 
-	/*
+	/**
 		Branch Coverage Tests:
 	 */
-	//TODO:
-	// 	T36, T46, T65, T75, F87, F94
-
-	// T36 = F25 + T34
-	// T36 = 1801 <= year <= 2021 	+	it is 31-day month	+	day<31
-	// T36: Jan 15 2001 -> 1 15 2001 -> 1/16/2001
 	@Test
 	public final void testRun_jan15th2001_jan16th2001() {	// This test covers l37
 		assertEquals("1/16/2001", trialDate.run(1, 15, 2001));
 	}
 
-	// T46 = F25 + F34 + T44	to cover line 47
-	// T46 = 1801 <= year <= 2021 	+	!31-day month 	+	30-day month
-	// T46 = Apr 15 2001 -> 4 15 2001 -> Apr/16/2001
 	@Test
 	public final void testRun_apr15th2001_apr16th2001() {	// This test covers l47
 		assertEquals("4/16/2001", trialDate.run(4, 15, 2001));
 	}
 
-	// T65 = F25 					+ F34 				+ F44
-	// 		+ T58 			+ F60
-	// T65 = 1801 <= year <= 2021 	+	!31-day month 	+	!30-day month +
-	// 		+ isDecember	+ day>31 + year 2021
-	// T65 = Dec 32 2021	-> 12 32 2021 -> "Invalid Next Year"
 	@Test
 	public final void testRun_dec32nd2021_invalidNextYear() {	// This test covers l66
 		assertEquals("Invalid Next Year", trialDate.run(12, 32, 2021));;
 	}
 
-	// T75 = F25 					+ F34 				+ F44
-	// 		+ F58			+ T73
-	// T75 = 1801 <= year <= 2021 	+	!31-day month 	+	!30-day month +
-	//		+ notDecember	+ isFebruary	+	day<28
-	// T75 = Feb 20 2002	-> 2 20 2002	-> "2/21/2002"
 	@Test
 	public final void testRun_Feb20th2002_Feb21st2002() {	// This test covers l76
 		assertEquals("2/21/2002", trialDate.run(2, 20, 2002));
 	}
 
-	// F78 = F25 					+ F34 				+ F44
-	// 		+ F58			+ T73			+ F75 		+ F78
-	// F78 = 1801 <= year <= 2021 	+	!31-day month 	+	!30-day month +
-	//		+ notDecember	+ isFebruary	+	day>=28	+ day != 28
-	// Summary: 1801 <= year <= 2021 + February + day > 28
-
-	// F87 = 1801 <= year <= 2021 + February + day > 28 + T86 + F87
-	// T86 = day == 29;		F87 = !leapYear
-	// F87 = Feb 29 2001 	-> 2 29 2001	-> Invalid Input Date
 	@Test
 	public final void testRun_Feb29th2001_invalidInputDate() {	// This test covers l92
 		assertEquals("Invalid Input Date", trialDate.run(2, 29, 2001));
@@ -179,7 +151,7 @@ public class NextDateTest {
 
 	// F94 = F78 + F86 + F94
 	// F94 = 1801 <= year <= 2021 + February + day > 28		+ day !=29 + day <= 29
-	// Summary: 28 < day < 29 + February	-	not possible
+	// Summary: 28 < day < 29 + February	-	not possible to cover last branch
 
 }
 
