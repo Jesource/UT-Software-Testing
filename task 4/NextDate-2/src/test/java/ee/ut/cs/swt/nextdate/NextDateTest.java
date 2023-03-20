@@ -108,9 +108,9 @@ public class NextDateTest {
 	 * IC test 9
 	 */
 
-	@Test//9%
-	public final void testRun_32ndOfDecember2002_InvalidInputDate() {
-		assertEquals("1/1/2003", trialDate.run(12, 32, 2002));
+	@Test	// 9%?
+	public final void test_99thDecember2004_invalidInputDate() {
+		assertEquals("Invalid Input Date", trialDate.run(12, 99, 2004));
 	}
 
 	/**
@@ -135,8 +135,8 @@ public class NextDateTest {
 	}
 
 	@Test
-	public final void testRun_dec32nd2021_invalidNextYear() {	// This test covers l66
-		assertEquals("Invalid Next Year", trialDate.run(12, 32, 2021));;
+	public final void testRun_dec31st2021_invalidNextYear() {	// This test covers l66
+		assertEquals("Invalid Next Year", trialDate.run(12, 31, 2021));;
 	}
 
 	@Test
@@ -156,11 +156,6 @@ public class NextDateTest {
 	@Test
 	public final void testRun_32ndOfAugust2008_invalidInputDate() {
 		assertEquals("invalid Input Date", trialDate.run(8, 32, 2008));
-	}
-
-	@Test
-	public final void test_99thDecember2004_invalidInputDate() {
-		assertEquals("Invalid Input Date", trialDate.run(12, 99, 2004));
 	}
 }
 
