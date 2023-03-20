@@ -45,18 +45,18 @@ public class NextDateTest {
 	 * IC test 2
 	 */
 
-	@Test //+4%
-	public final void testRun_NextDateAfter23rdOfMay_24May2002(){
-		assertEquals("5/24/2002", trialDate.run(5, 23, 2002));
+	@Test
+	public final void testRun_NextDateAfter31stOfJuly_1stOfAugust2002(){
+		assertEquals("8/1/2000", trialDate.run(7, 31, 2000));
 	}
 
 	/**
 	 * IC test 3
 	 */
 
-	@Test //+3%
-	public final void testRun_NextDateAfter23rdOfApril_24Apr2002(){
-		assertEquals("4/24/2002", trialDate.run(4, 23, 2002));
+	@Test
+	public final void testRun_NextDateAfter31stOfDecember_1stOfTheJanuary2004(){
+		assertEquals("1/1/2004", trialDate.run(12, 31, 2003));
 	}
 
 	/**
