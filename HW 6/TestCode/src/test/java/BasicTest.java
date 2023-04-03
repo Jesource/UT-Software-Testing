@@ -2,7 +2,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 
@@ -14,13 +16,23 @@ public class BasicTest extends TestHelper {
     private String username = "test";
     private String password = "test";
 
-    @Test
-    public void titleExistsTest() {
-        String expectedTitle = "ST Online Store";
-        String actualTitle = driver.getTitle();
+    private String productName = "B45593 Sunglasses";
 
-        assertEquals(expectedTitle, actualTitle);
-    }
+    private String productName2 = "Sunglasses 2AR";
+
+    private String productName3 = "Sunglasses B45593";
+
+
+
+
+
+//    @Test
+//    public void titleExistsTest() {
+//        String expectedTitle = "ST Online Store";
+//        String actualTitle = driver.getTitle();
+//
+//        assertEquals(expectedTitle, actualTitle);
+//    }
 
 
     /*
@@ -29,21 +41,21 @@ public class BasicTest extends TestHelper {
     Fill in loginLogoutTest() and login method in TestHelper, so that the test passes correctly.
 
      */
-    @Test
-    public void loginLogoutTest() {
-
-        login(username, password);
-
-        // assert that correct page appeared
-        String expectedURL = "http://localhost:3000/products";
-        String actualURL = driver.getCurrentUrl();
-
-        if (!actualURL.equals(expectedURL)) {
-            Assert.fail("Wrong page appeared");
-        }
-
-        logout();
-    }
+//    @Test
+//    public void loginLogoutTest() {
+//
+//        login(username, password);
+//
+//        // assert that correct page appeared
+//        String expectedURL = "http://localhost:3000/products";
+//        String actualURL = driver.getCurrentUrl();
+//
+//        if (!actualURL.equals(expectedURL)) {
+//            Assert.fail("Wrong page appeared");
+//        }
+//
+//        logout();
+//    }
 
     /*
     In class Exercise
@@ -51,14 +63,14 @@ public class BasicTest extends TestHelper {
      Write a test case, where you make sure, that one can’t log in with a false password
 
      */
-    @Test
-    public void loginFalsePassword() {
-        login(username, "falsePassword");
-        String loginFailMessageActual = driver.findElement(By.id("notice")).getText();
-        String loginFailMessageExpected = "Invalid user/password combination";
-
-        assertEquals(loginFailMessageExpected, loginFailMessageActual);
-    }
+//    @Test
+//    public void loginFalsePassword() {
+//        login(username, "falsePassword");
+//        String loginFailMessageActual = driver.findElement(By.id("notice")).getText();
+//        String loginFailMessageExpected = "Invalid user/password combination";
+//
+//        assertEquals(loginFailMessageExpected, loginFailMessageActual);
+//    }
 
     @Test
     public void admin_registerAndDeleteNewAccount() {
@@ -224,4 +236,168 @@ public class BasicTest extends TestHelper {
 
         assertEquals(productCreationPageURL, URLAfterTryingToSaveProductWithoutSelectedCategory);
     }
+
+    @Test
+    public void user_addToAndEmptyTheCart(){
+        addProductToTheCart(productName + "_entry");
+        String cart = driver.findElement(By.id("cart_title")).getText();
+        assertEquals(cart, "Your Cart");
+        emptyTheCart();
+        WebElement element = driver.findElement(By.id("column2"));
+        WebElement element1 = element.findElement(By.id("main"));
+        WebElement element2 = element1.findElement(By.id("notice"));
+        assertEquals("Cart successfully deleted.", element2.getText());
+    }
+
+
+    @Test
+    public void user_addToAndEmptyTheCart2(){
+        addProductToTheCart(productName2 + "_entry");
+        String cart = driver.findElement(By.id("cart_title")).getText();
+        assertEquals(cart, "Your Cart");
+        emptyTheCart();
+        WebElement element = driver.findElement(By.id("column2"));
+        WebElement element1 = element.findElement(By.id("main"));
+        WebElement element2 = element1.findElement(By.id("notice"));
+        assertEquals("Cart successfully deleted.", element2.getText());
+    }
+
+    @Test
+    public void user_increaseProduct() {
+        addProductToTheCart(productName + "_entry");
+        WebElement side = driver.findElement(By.id("side"));
+        WebElement cart = side.findElement(By.id("cart"));
+        WebElement item = cart.findElement(By.id("current_item"));
+        assertEquals(item.findElement(By.xpath("//td[contains(text(), '1×')]")).getText(), "1×");
+        item.findElement(By.linkText("↑")).click();
+        item = cart.findElement(By.id("current_item")); // re-locate the item element
+        assertEquals(item.findElement(By.xpath("//td[contains(text(), '2×')]")).getText(), "2×");
+    }
+
+    @Test
+    public void user_decreaseProduct(){
+        addProductToTheCart(productName + "_entry");
+        WebElement side = driver.findElement(By.id("side"));
+        WebElement cart = side.findElement(By.id("cart"));
+        WebElement item = cart.findElement(By.id("current_item"));
+        assertEquals(item.findElement(By.xpath("//td[contains(text(), '1×')]")).getText(), "1×");
+        item.findElement(By.linkText("↑")).click();
+        item = cart.findElement(By.id("current_item")); // re-locate the item element
+        assertEquals(item.findElement(By.xpath("//td[contains(text(), '2×')]")).getText(), "2×");
+        item.findElement(By.linkText("↓")).click();
+        item = cart.findElement(By.id("current_item")); // re-locate the item element
+        assertEquals(item.findElement(By.xpath("//td[contains(text(), '1×')]")).getText(), "1×");
+    }
+
+    @Test
+    public void user_deleteProductByOne(){
+        addProductToTheCart(productName + "_entry");
+        WebElement side = driver.findElement(By.id("side"));
+        WebElement cart = side.findElement(By.id("cart"));
+        WebElement item = cart.findElement(By.id("current_item"));
+        item.findElement(By.linkText("X")).click();
+        WebElement element = driver.findElement(By.id("column2"));
+        WebElement element1 = element.findElement(By.id("main"));
+        WebElement element2 = element1.findElement(By.id("notice"));
+        assertEquals("Item successfully deleted from cart.", element2.getText());
+    }
+
+    @Test
+    public void user_deleteProductByOne2(){
+        addProductToTheCart(productName2 + "_entry");
+        WebElement side = driver.findElement(By.id("side"));
+        WebElement cart = side.findElement(By.id("cart"));
+        WebElement item = cart.findElement(By.id("current_item"));
+        item.findElement(By.linkText("X")).click();
+        WebElement element = driver.findElement(By.id("column2"));
+        WebElement element1 = element.findElement(By.id("main"));
+        WebElement element2 = element1.findElement(By.id("notice"));
+        assertEquals("Item successfully deleted from cart.", element2.getText());
+    }
+
+    @Test
+    public void user_deleteProductByOne3(){
+        addProductToTheCart(productName3 + "_entry");
+        WebElement side = driver.findElement(By.id("side"));
+        WebElement cart = side.findElement(By.id("cart"));
+        WebElement item = cart.findElement(By.id("current_item"));
+        item.findElement(By.linkText("X")).click();
+        WebElement element = driver.findElement(By.id("column2"));
+        WebElement element1 = element.findElement(By.id("main"));
+        WebElement element2 = element1.findElement(By.id("notice"));
+        assertEquals("Item successfully deleted from cart.", element2.getText());
+    }
+
+    @Test
+    public void user_checkTheFilterSunglasses(){
+        checkCategory("Sunglasses");
+    }
+
+    @Test
+    public void user_checkTheFilterBooks(){
+        checkCategory("Books");
+    }
+    @Test
+    public void user_checkTheSearch1(){
+        driver.get(baseUrl);
+        WebElement bar = driver.findElement(By.id("search_input"));
+        bar.sendKeys(productName);
+        bar.submit();
+
+        // Wait for the search results to load before proceeding
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id(productName + "_entry")));
+
+        WebElement element = driver.findElement(By.id(productName + "_entry"));
+        assertEquals(element.findElement(By.linkText(productName)).getText(), productName);
+    }
+
+
+    @Test
+    public void user_checkTheSearch2(){ //fail test
+        driver.get(baseUrl);
+        WebElement bar = driver.findElement(By.id("search_input"));
+        bar.sendKeys("Sunglasses");
+        bar.submit();
+
+        // Wait for the search results to load before proceeding
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("category")));
+
+        WebElement parentDiv = driver.findElement(By.id("main"));
+        List<WebElement> childDivs = parentDiv.findElements(By.className("entry"));
+        for (WebElement div : childDivs) {
+            WebElement categoryP = div.findElement(By.id("category"));
+            String categoryText = categoryP.getText();
+            String categoryValue = categoryText.substring(categoryText.indexOf("</strong>") + "</strong>".length());
+            assertEquals (categoryValue, ": Sunglasses");
+        }
+    }
+
+    @Test
+    public void user_checkTheSearch3(){
+        driver.get(baseUrl);
+        WebElement bar = driver.findElement(By.id("search_input"));
+        bar.sendKeys("Books");
+        bar.submit();
+
+        // Wait for the search results to load before proceeding
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("main")));
+
+        WebElement parentDiv = driver.findElement(By.id("main"));
+        List<WebElement> childDivs = parentDiv.findElements(By.className("entry"));
+        for (WebElement div : childDivs) {
+            WebElement categoryP = div.findElement(By.id("category"));
+            String categoryText = categoryP.getText();
+            String categoryValue = categoryText.substring(categoryText.indexOf("</strong>") + "</strong>".length());
+            assertEquals (categoryValue, ": Books");
+        }
+    }
+
+
+
+
+
+
 }

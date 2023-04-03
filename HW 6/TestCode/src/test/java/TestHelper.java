@@ -12,6 +12,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static junit.framework.TestCase.assertEquals;
+
 public class TestHelper {
 
     static WebDriver driver;
@@ -35,7 +37,7 @@ public class TestHelper {
         //driver = new FirefoxDriver();
 
         // if you use Firefox:
-        System.setProperty("webdriver.gecko.driver", "D:\\Shool folder\\GIT folder\\UT-Software-Testing\\HW 6\\geckodriver.exe");
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\aleks\\OneDrive\\Desktop\\ST\\UT-Software-Testing\\HW 6\\geckodriver.exe");
         driver = new FirefoxDriver();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -121,6 +123,29 @@ public class TestHelper {
     void deleteProduct(String productTitle) {
         WebElement productToDelete = driver.findElement(By.id(productTitle));
         productToDelete.findElement(By.linkText("Delete")).click();
+    }
+
+    void addProductToTheCart(String productTitle){
+        WebElement productToAdd = driver.findElement(By.id(productTitle));
+        productToAdd.findElement(By.className("button_to")).click();
+    }
+
+    void emptyTheCart(){
+        WebElement form = driver.findElement(By.className("button_to"));
+        form.findElement(By.cssSelector("input[type='submit'][value='Empty cart']")).click();
+    }
+
+    void checkCategory(String category){
+        driver.get("http://localhost:3000/store/filter?sort="+category);
+        WebElement parentDiv = driver.findElement(By.id("main"));
+        List<WebElement> childDivs = parentDiv.findElements(By.className("entry"));
+        for (WebElement div : childDivs) {
+            WebElement categoryP = div.findElement(By.id("category"));
+            String categoryText = categoryP.getText();
+            String categoryValue = categoryText.substring(categoryText.indexOf("</strong>") + "</strong>".length());
+            System.out.println(categoryValue);
+            assertEquals (categoryText, "Category"+categoryValue);
+        }
     }
 
     @After
