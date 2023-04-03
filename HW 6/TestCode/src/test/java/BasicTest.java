@@ -16,23 +16,23 @@ public class BasicTest extends TestHelper {
     private String username = "test";
     private String password = "test";
 
-    private String productName = "B45593 Sunglasses";
+    private String productName = "B45593 Sunglasses"; //DO NOT CHANGE
 
-    private String productName2 = "Sunglasses 2AR";
+    private String productName2 = "Sunglasses 2AR"; //DO NOT CHANGE
 
-    private String productName3 = "Sunglasses B45593";
-
-
+    private String productName3 = "Sunglasses B45593"; //DO NOT CHANGE
 
 
 
-//    @Test
-//    public void titleExistsTest() {
-//        String expectedTitle = "ST Online Store";
-//        String actualTitle = driver.getTitle();
-//
-//        assertEquals(expectedTitle, actualTitle);
-//    }
+
+
+    @Test
+    public void titleExistsTest() {
+        String expectedTitle = "ST Online Store";
+        String actualTitle = driver.getTitle();
+
+        assertEquals(expectedTitle, actualTitle);
+    }
 
 
     /*
@@ -41,21 +41,21 @@ public class BasicTest extends TestHelper {
     Fill in loginLogoutTest() and login method in TestHelper, so that the test passes correctly.
 
      */
-//    @Test
-//    public void loginLogoutTest() {
-//
-//        login(username, password);
-//
-//        // assert that correct page appeared
-//        String expectedURL = "http://localhost:3000/products";
-//        String actualURL = driver.getCurrentUrl();
-//
-//        if (!actualURL.equals(expectedURL)) {
-//            Assert.fail("Wrong page appeared");
-//        }
-//
-//        logout();
-//    }
+    @Test
+    public void loginLogoutTest() {
+
+        login(username, password);
+
+        // assert that correct page appeared
+        String expectedURL = "http://localhost:3000/products";
+        String actualURL = driver.getCurrentUrl();
+
+        if (!actualURL.equals(expectedURL)) {
+            Assert.fail("Wrong page appeared");
+        }
+
+        logout();
+    }
 
     /*
     In class Exercise
@@ -63,14 +63,14 @@ public class BasicTest extends TestHelper {
      Write a test case, where you make sure, that one can’t log in with a false password
 
      */
-//    @Test
-//    public void loginFalsePassword() {
-//        login(username, "falsePassword");
-//        String loginFailMessageActual = driver.findElement(By.id("notice")).getText();
-//        String loginFailMessageExpected = "Invalid user/password combination";
-//
-//        assertEquals(loginFailMessageExpected, loginFailMessageActual);
-//    }
+    @Test
+    public void loginFalsePassword() {
+        login(username, "falsePassword");
+        String loginFailMessageActual = driver.findElement(By.id("notice")).getText();
+        String loginFailMessageExpected = "Invalid user/password combination";
+
+        assertEquals(loginFailMessageExpected, loginFailMessageActual);
+    }
 
     @Test
     public void admin_registerAndDeleteNewAccount() {
@@ -95,6 +95,7 @@ public class BasicTest extends TestHelper {
         String actualNoticeText = driver.findElement(By.id("notice")).getText();
 
         assertEquals(expectedNoticeText, actualNoticeText);
+
     }
 
     @Test
@@ -343,6 +344,7 @@ public class BasicTest extends TestHelper {
         WebElement bar = driver.findElement(By.id("search_input"));
         bar.sendKeys(productName);
         bar.submit();
+        driver.get("http://localhost:3000/?search=B45593+Sunglasses");
 
         // Wait for the search results to load before proceeding
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -359,6 +361,7 @@ public class BasicTest extends TestHelper {
         WebElement bar = driver.findElement(By.id("search_input"));
         bar.sendKeys("Sunglasses");
         bar.submit();
+        driver.get("http://localhost:3000/store/filter?sort=Sunglasses");
 
         // Wait for the search results to load before proceeding
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -380,6 +383,7 @@ public class BasicTest extends TestHelper {
         WebElement bar = driver.findElement(By.id("search_input"));
         bar.sendKeys("Books");
         bar.submit();
+        driver.get("http://localhost:3000/store/filter?sort=Books");
 
         // Wait for the search results to load before proceeding
         WebDriverWait wait = new WebDriverWait(driver, 10);
