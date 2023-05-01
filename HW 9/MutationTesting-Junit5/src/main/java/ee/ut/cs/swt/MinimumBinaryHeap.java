@@ -60,35 +60,46 @@ public class MinimumBinaryHeap {
     }
 
     public void bubbleUp(int pos) {
-        if (pos == 0) return;
-        int parent = (pos - 1) / 2;   //TODO: [BUGFIX 5] Changed to the correct way to find parent index
-        while (heap.get(pos) < heap.get(parent)) {
-            swap(pos, parent);
-            pos = parent;
-            parent = (pos - 1) / 2;
+        try{
+            if (!heap.isEmpty()){
+                if (pos == 0) return;
+                int parent = (pos)/2;
+                while (heap.get(pos) < heap.get(parent)) {
+                    swap(pos, parent);
+                    pos = parent;
+                    parent = (pos-1)/2;
+                }
+            }
+        } catch (EmptyStackException e){
+            System.out.println(e);
         }
     }
 
     public void bubbleDown(int pos) {
-        int leftChild = 2 * pos + 1;
-        int rightChild = 2 * pos + 2;
+        try {
+            int leftChild = 2 * pos + 1;
+            int rightChild = 2 * pos + 2;
+            int min = pos;
+            int maxSize = heap.size();
 
-        int min = pos;
-        int maxSize = heap.size();
-
-        // when the left child is smaller
-        if (leftChild < maxSize && heap.get(leftChild) < heap.get(min)) {
-            min = leftChild;
-        }
-        // when the right child is smaller
-        if (rightChild < maxSize && heap.get(rightChild) < heap.get(min)) {
-            min = rightChild;
-        }
-        if (min != pos) {
-            swap(min, pos);
-            bubbleDown(min);
+            // when the left child is smaller
+            if (leftChild < maxSize && heap.get(leftChild) < heap.get(min)) {
+                min = leftChild;
+            }
+            // when the right child is smaller
+            if (rightChild < maxSize && heap.get(rightChild) < heap.get(min)) {
+                min = rightChild;
+            }
+            if (min != pos) {
+                swap(min, pos);
+                bubbleDown(min);
+            }
+        } catch (NoSuchElementException e){
+            System.out.println(e);
         }
     }
+
+    
 
     /**
      * Removes element from the heap if possible.
@@ -97,14 +108,17 @@ public class MinimumBinaryHeap {
      * @return True if element was removed and false otherwise.
      */
     public boolean remove(int element) {
+        if(heap.isEmpty() || !heap.contains(element)){
+            return false;
+        }
         int index = heap.indexOf(element);
-        if (index == heap.size() - 1) {
-            heap.remove(heap.size() - 1);
-            return false;   //TODO: Why there's false returned if element was removed?
+        if (index == heap.size()-1) {
+            heap.remove(heap.size()-1);
+            return false;
         }
 
-        heap.set(index, heap.get(heap.size() - 1));
-        heap.remove(heap.size() - 1);
+        heap.set(index, heap.get(heap.size()-1));
+        heap.remove(heap.size()-1);
         bubbleDown(index);
         return true;
     }
