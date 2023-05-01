@@ -141,5 +141,39 @@ public class MinimumBinaryHeapTest {
 		assertEquals(List.of(5, 15), heap.getArray());
 	}
 
+	@Test
+	void testExtractMin2() {
+		MinimumBinaryHeap heap = new MinimumBinaryHeap();
+		heap.exractMin();
+	}
+	@Test
+	void testRemove2() {
+		MinimumBinaryHeap heap = new MinimumBinaryHeap();
+		heap.remove(0);
+	}
+
+	@Test
+	void testRemove3() {
+		MinimumBinaryHeap heap = new MinimumBinaryHeap();
+		heap.bubbleDown(0);
+	}
+
+	@Test
+	void testBubbleUp() {
+		MinimumBinaryHeap heap = new MinimumBinaryHeap();
+		List<Integer> expected = Arrays.asList(1, 3, 2, 5, 4);
+		List<Integer> actual = new ArrayList<>();
+
+		heap.add(1);
+		heap.add(2);
+		heap.add(3);
+		heap.add(4);
+		heap.add(5);
+
+		heap.bubbleUp(4); // bubble up the last element
+
+		actual = heap.getArray();
+		assertEquals(expected, actual);
+	}
 }
 
