@@ -3,7 +3,6 @@ package ee.ut.cs.swt;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Executable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -152,8 +151,7 @@ public class MinimumBinaryHeapTest {
     @Test
     void testRemove2() {
         MinimumBinaryHeap heap = new MinimumBinaryHeap();
-        assertThrows(IndexOutOfBoundsException.class, () -> heap.remove(0),
-                "No exceptions were thrown");
+        assertEquals(false, heap.remove(0));
     }
 
     @Test
