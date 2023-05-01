@@ -19,7 +19,6 @@ public class MinimumBinaryHeap {
         for (int i = 0; i < array.size(); i++) {
             bubbleUp(i);
         }
-        array = heap;
     }
 
     /**
@@ -65,7 +64,7 @@ public class MinimumBinaryHeap {
         try{
             if (!heap.isEmpty()){
                 if (pos == 0) return;
-                int parent = (pos)/2;
+                int parent = (pos - 1) / 2;
                 while (heap.get(pos) < heap.get(parent)) {
                     swap(pos, parent);
                     pos = parent;
@@ -101,7 +100,6 @@ public class MinimumBinaryHeap {
         }
     }
 
-    
 
     /**
      * Removes element from the heap if possible.
@@ -116,7 +114,7 @@ public class MinimumBinaryHeap {
         int index = heap.indexOf(element);
         if (index == heap.size()-1) {
             heap.remove(heap.size()-1);
-            return false;
+            return true;    //TODO: bugfix
         }
 
         heap.set(index, heap.get(heap.size()-1));
