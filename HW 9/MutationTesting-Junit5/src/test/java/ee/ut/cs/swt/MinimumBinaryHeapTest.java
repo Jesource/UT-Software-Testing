@@ -145,7 +145,6 @@ public class MinimumBinaryHeapTest {
     @Test
     void testExtractMin2() {
         MinimumBinaryHeap heap = new MinimumBinaryHeap();
-//        heap.exractMin();
         assertThrows(IllegalArgumentException.class, () -> heap.exractMin(),
                 "Not IllegalArgumentException or no exceptions were thrown");
     }

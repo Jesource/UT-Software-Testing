@@ -27,6 +27,10 @@ public class MinimumBinaryHeap {
      * @return Element at the top of the heap.
      */
     public int exractMin() {
+        if (heap.isEmpty()) {       //TODO: [BUGFIX 3]
+            throw new IllegalArgumentException("Heap is empty");
+        }
+
         int min = heap.get(0);
         int leaf = heap.get(heap.size() - 1);
         heap.set(0, leaf);
@@ -57,7 +61,7 @@ public class MinimumBinaryHeap {
 
     public void bubbleUp(int pos) {
         if (pos == 0) return;
-        int parent = (pos) / 2;     //TODO: Why there "pos" is in brackets? Looks suspicious, needs to be checked
+        int parent = (pos - 1) / 2;   //TODO: [BUGFIX 5] Changed to the correct way to find parent index
         while (heap.get(pos) < heap.get(parent)) {
             swap(pos, parent);
             pos = parent;
