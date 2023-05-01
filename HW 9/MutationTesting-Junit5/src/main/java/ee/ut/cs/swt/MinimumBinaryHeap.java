@@ -61,19 +61,25 @@ public class MinimumBinaryHeap {
     }
 
     public void bubbleUp(int pos) {
-        try{
-            if (!heap.isEmpty()){
-                if (pos == 0) return;
-                int parent = (pos - 1) / 2;
-                while (heap.get(pos) < heap.get(parent)) {
-                    swap(pos, parent);
-                    pos = parent;
-                    parent = (pos-1)/2;
-                }
-            }
-        } catch (EmptyStackException e){
-            System.out.println(e);
+        if (heap.isEmpty()) {
+            return;
         }
+        if (pos >= heap.size()) {
+            throw new RuntimeException("Provided index is out of bounds");
+        }
+
+        if (pos == 0) {
+            return;
+        }
+
+        while (heap.get(pos) < heap.get(getParentIndex(pos))) {
+            swap(pos, getParentIndex(pos));
+            pos = getParentIndex(pos);
+        }
+    }
+
+    private int getParentIndex(int childIndex) {
+        return ((childIndex - 1) / 2);
     }
 
     public void bubbleDown(int pos) {
