@@ -12,7 +12,11 @@ public class Person {
 		this.lastName = lastName;
 		this.birthDate = gregorianCalendar;
 		if (!gregorianCalendar.after(GregorianCalendar.getInstance())){
-			new Exception("Birthyear cannot be in the future!");
+			try {
+				throw new Exception("Birthyear cannot be in the future!");
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
 		}
 	}
 	
@@ -26,9 +30,9 @@ public class Person {
 	}
 	
 	public String getFullName(){
-		firstName.toLowerCase();
+		firstName = firstName.toLowerCase();
 		Character.toUpperCase(firstName.charAt(0));
-		lastName.toLowerCase();
+		lastName = lastName.toLowerCase();
 		Character.toUpperCase(lastName.charAt(0));
 		return firstName + " " + lastName;
 		

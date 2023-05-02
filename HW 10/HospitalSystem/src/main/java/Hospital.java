@@ -63,7 +63,7 @@ private static ArrayList<ExaminationRoom> examinationRooms;
 		String thisNumber = Integer.toString(room.getNumber());
 		for (int i = 0; i < examinationRooms.size(); i++) {
 			String roomNumber = Integer.toString(examinationRooms.get(i).getNumber());
-			if (thisNumber == roomNumber){
+			if (thisNumber.equals(roomNumber)) {
 				throw new Exception("Room number already in use!");
 			}
 		}
